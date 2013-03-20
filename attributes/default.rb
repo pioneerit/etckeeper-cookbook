@@ -1,11 +1,12 @@
 default['etckeeper']['packages'] = %w{etckeeper git}
 default['etckeeper']['dir'] = "/etc/etckeeper"
-default['etckeeper']['config'] = "#{node[:etckeeper][:dir]}/etckeeper.conf"
+default['etckeeper']['config'] = "#{node['etckeeper']['dir']}/etckeeper.conf"
 default['etckeeper']['vcs'] = "git"
-default['etckeeper']['git_host'] = "22"
+default['etckeeper']['git_host'] = "github.com"
 default['etckeeper']['git_port'] = "22"
-case node[:platform]
-when "centos","redhat","fedora"
+
+case node['platform']
+when "centos", "redhat", "amazon", "scientific","fedora"
   default['etckeeper']['high_pckg_man'] = "yum"
   default['etckeeper']['low_pckg_man'] = "rpm"
 when "ubuntu","debian"

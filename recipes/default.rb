@@ -16,11 +16,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-node[:etckeeper][:packages].each do |pckg|
+node['etckeeper']['packages'].each do |pckg|
   package pckg
 end
 
-template "#{node[:etckeeper][:config]}" do
+template node['etckeeper']['config'] do
     source "etckeeper.conf.erb"
     mode 0644
 end
@@ -63,16 +63,16 @@ bash "init_repo" do
   code <<-EOH
   etckeeper init
   etckeeper commit \"Initial commit\"
-  git remote add origin #{node[:etckeeper][:git_host]}:etckeeper
-  git checkout -b #{node[:fqdn]}
-  git push origin #{node[:fqdn]}
+  git remote add origin #{node['etckeeper']['git_host']}:etckeeper
+  git checkout -b #{node['fqdn']}
+  git push origin #{node['fqdn']}
   EOH
   not_if do
     File.directory?("/etc/.git")
   end
 end
 
-template "#{node[:etckeeper][:dir]}/post-install.d/vcs-commit-push60" do
+template "#{node['etckeeper']['dir']}/post-install.d/vcs-commit-push60" do
   source "vcs-commit-push.erb"
   mode "0755"
 end
