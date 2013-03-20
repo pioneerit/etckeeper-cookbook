@@ -1,7 +1,7 @@
 Description
 ===========
 Install and configure etckeeper. Add cron task for every day commit & push changes to remote repo.
-Thanks
+Thanks to [alekschumakov88](https://github.com/alekschumakov88), who created the first version of this cookbook.
 
 Requirements
 ============
