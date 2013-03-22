@@ -6,12 +6,20 @@ Thanks to [alekschumakov88](https://github.com/alekschumakov88), who created the
 Requirements
 ============
 recipe['cron']
+
 Attributes
 ==========
+default['etckeeper']['git_host'] = "github.com"
+default['etckeeper']['git_port'] = "22"
+default['etckeeper']['git_repo'] = "etckeeper"
+default['etckeeper']['git_branch'] = node['fqdn']
+
 
 Usage
 =====
-recipe['etckeeper']
+Make key and copy to ./files/default as etckeeper_key
+Set at atribute for git repo. For example `default['etckeeper']['git_repo'] = "myuser/myrepo.git"`
+Add to run_list `recipe['etckeeper']`
 
 TODO
 =====

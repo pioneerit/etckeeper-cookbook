@@ -1,4 +1,4 @@
-Host <%= node ['etckeeper']['git_host'] %>
+Host <%= node['etckeeper']['git_host'] %>
     user git
-    Port <%= node[:etckeeper][:git_port] %>
+    Port <%= node['etckeeper']['git_port'] %>
     IdentityFile /root/.ssh/etckeeper_key
