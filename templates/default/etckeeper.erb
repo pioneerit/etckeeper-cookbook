@@ -13,7 +13,9 @@ if [ -x /usr/bin/etckeeper ] && [ -e /etc/etckeeper/etckeeper.conf ]; then
                         export AVOID_SPECIAL_FILE_WARNING
                         if etckeeper unclean; then
                                 etckeeper commit "daily autocommit" >/dev/null
+                                <%= if node['etckeeper']['git_remote_enabled'] == true -%>
                                 cd /etc/; git push origin <%= node['etckeeper']['git_branch'] %> >/dev/null
+                               <% end -%>
                         fi
                 fi
         fi
