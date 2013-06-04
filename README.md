@@ -20,9 +20,9 @@ default['etckeeper']['git_remote_enabled'] = true
 
 Usage
 =====
-* If you do not set `default['etckeeper']['git_remote_enabled']` to `false`:
-** Make key and copy to ./files/default as etckeeper_key
-** Set at atribute for git repo. For example `default['etckeeper']['git_repo'] = "myuser/myrepo.git"`
+* If you do not set `['git_remote_enabled']` to `false`:
+ * Make key and copy to ./files/default as etckeeper_key
+ * Set at atribute for git repo. For example `default['etckeeper']['git_repo'] = "myuser/myrepo.git"`
 * Add to run_list `recipe['etckeeper']`
 
 TODO
