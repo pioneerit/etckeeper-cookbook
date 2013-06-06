@@ -3,7 +3,7 @@ template node['etckeeper']['config'] do
     mode 0644
 end
 
-if node['etckeeper']['git_remote_enabled'] == true
+if node['etckeeper']['git_remote_enabled']
   directory "/root/.ssh" do
     owner "root"
     group "root"
@@ -21,6 +21,7 @@ if node['etckeeper']['git_remote_enabled'] == true
     source "config_ssh.erb"
     mode "0600"
   end
+
   template "#{node['etckeeper']['dir']}/post-install.d/vcs-commit-push60" do
     source "vcs-commit-push.erb"
     mode "0755"
@@ -46,7 +47,7 @@ end
 bash "init_repo" do
   user "root"
   cwd "/etc"
-  if node['etckeeper']['git_remote_enabled'] == true
+  if node['etckeeper']['git_remote_enabled']
     git_remote = <<-EOF
       git remote add origin #{node['etckeeper']['git_host']}:#{node['etckeeper']['git_repo']}
       git checkout -b #{node['etckeeper']['git_branch']}
