@@ -20,7 +20,7 @@ module Etckeeper
       tempfile.close
 
       Chef::Log.info "persist change to etc/ with git" 
-      Chef::Log.info  `cd /etc; git add -A; git commit -F "#{tempfile.path}"`
+      Chef::Log.debug `cd /etc; git add -A; git commit -F "#{tempfile.path}"`
 
     end
   end
