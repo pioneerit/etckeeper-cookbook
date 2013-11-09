@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'chef/log'
-#require 'chef'
+require 'tempfile'
 
 module Etckeeper
   class ClientHandler < Chef::Handler
@@ -14,10 +14,14 @@ module Etckeeper
         "status:#{run_status.success? ? 1 : 0}",
         "numupdates:#{run_status.updated_resources.length}",
       ].join(" ")
+      
+      tempfile = Tempfile.new('msg')
+      tempfile.write(message)
+      tempfile.close
 
-      #File.open(tempfile, 'w') {|f| f.write(message)}
-      Chef::Log.info "git persist change to etc/ #{message}" 
-      #Chef::Log.debug `#{node.zabbix.install_dir}/bin/zabbix_sender --config #{node.zabbix.etc_dir}/zabbix_agentd.conf --input-file #{tempfile}`
+      Chef::Log.info "persist change to etc/ with git" 
+      Chef::Log.info  `cd /etc; git add -A; git commit -F "#{tempfile.path}"`
+
     end
   end
 end
