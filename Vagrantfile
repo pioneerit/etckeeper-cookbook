@@ -85,7 +85,7 @@ Vagrant.configure("2") do |config|
 
     chef.run_list = [
         "recipe[etckeeper::default]",
-        "recipe[etckeeper::chef-client]"
+        "recipe[etckeeper::commit]"
     ]
   end
 end
