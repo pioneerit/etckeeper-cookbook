@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'chef/log'
-require 'tempfile'
+#require 'tempfile'
 
 module Etckeeper
   class ClientHandler < Chef::Handler
@@ -11,16 +11,16 @@ module Etckeeper
       # only commit when status is success ???
       message = [
         "chef-client",
-        "status:#{run_status.success? ? 1 : 0}",
-        "numupdates:#{run_status.updated_resources.length}",
+        "#{run_status.success? ? 'success' : 'failed'}",
       ].join(" ")
       
-      tempfile = Tempfile.new('msg')
-      tempfile.write(message)
-      tempfile.close
+      #tempfile = Tempfile.new('msg')
+      #tempfile.write(message)
+      #tempfile.close
 
       Chef::Log.info "persist change to etc/ with git" 
-      Chef::Log.debug `cd /etc; git add -A; git commit -F "#{tempfile.path}"`
+      #Chef::Log.debug `cd /etc; git add -A; git commit -F "#{tempfile.path}"`
+      Chef::Log.debug `etckeeper commit "#{message}"`
 
     end
   end
