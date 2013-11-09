@@ -77,11 +77,15 @@ Vagrant.configure("2") do |config|
       },
       :etckeeper => {
         :git_remote_enabled => false
+      },
+      :chef_handler => {
+        :handler_path => '/var/chef/handlers'
       }
     }
 
     chef.run_list = [
-        "recipe[etckeeper::default]"
+        "recipe[etckeeper::default]",
+        "recipe[etckeeper::chef-client]"
     ]
   end
 end
