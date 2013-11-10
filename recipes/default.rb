@@ -16,6 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+include_recipe "git"
+
 node['etckeeper']['packages'].each do |pckg|
   package pckg
 end
