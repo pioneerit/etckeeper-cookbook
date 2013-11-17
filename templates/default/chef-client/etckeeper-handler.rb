@@ -1,27 +1,48 @@
 require 'rubygems'
 require 'chef/log'
-#require 'tempfile'
 
 module Etckeeper
-  class ClientHandler < Chef::Handler
+
+  # THIS PART IS CURRENTLY NOT USED!!
+  class StartHandler < Chef::Handler
     def report
+      Chef::Log.info "Etckeeper::StartHandler inspecting /etc"
 
-      Chef::Log.info "Etckeeper::Report handler started"
-     
-      # only commit when status is success ???
-      message = [
-        "chef-client",
-        "#{run_status.success? ? 'success' : 'failed'}",
-      ].join(" ")
-      
-      #tempfile = Tempfile.new('msg')
-      #tempfile.write(message)
-      #tempfile.close
+      if is_git_repo?
+        if unclean?
+          Chef::Application.fatal! "/etc is NOT clean"
+        else
+          Chef::Log.info "/etc seems clean, continuing"
+        end
 
-      Chef::Log.info "persist change to etc/ with git" 
-      #Chef::Log.debug `cd /etc; git add -A; git commit -F "#{tempfile.path}"`
-      Chef::Log.debug `etckeeper commit "#{message}"`
+      else
+        Chef::Log.warn "/etc seems to be not a git repositry"
+      end
+    end
 
+    def is_git_repo?
+      `cd /etc; git status 2>&1`
+      return $?.success?
+    end
+
+    def unclean?
+      `etckeeper unclean`
+      return $?.success?
     end
   end
+
+
+  class CommitHandler < Chef::Handler
+    def report
+      Chef::Log.info "Persisting changes of current chef run for /etc/"
+
+      # only commit when status is success ???
+      message = "chef-client on #{node.name}: " + (run_status.success? ? 'success' : 'failed') +
+      "\nFormatted Exception: #{run_status.formatted_exception}" +
+      ("\nUpdated resources: #{run_status.updated_resources.join("\n")}")
+
+      Chef::Log.debug `etckeeper commit "#{message}"`
+    end
+  end
+
 end

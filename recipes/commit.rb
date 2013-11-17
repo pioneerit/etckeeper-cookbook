@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: etckeeper
-# Recipe:: chef-client
+# Recipe:: commit
 #
 # Copyright 2012-2013, Steffen Gebert / TYPO3 Association
 #                      Peter Niederlag / TYPO3 Association
@@ -25,7 +25,23 @@ template "#{node.chef_handler.handler_path}/etckeeper-handler.rb" do
 end
 
 # We register ourself as a report handler, which runs at the end of chef run
-chef_handler "Etckeeper::ClientHandler" do
+chef_handler "Etckeeper::CommitHandler" do
   source "#{node.chef_handler.handler_path}/etckeeper-handler.rb"
   action :enable
+  supports ({:report => true, :exception => true, :start => false})
+end
+
+# As we currently don't know, how to fail the chef-run from a start handler,
+# this is pretty useless. We can see, whether changes have been made, but we
+# can't do anything else (than maybe commit them)
+#
+# chef_handler "Etckeeper::StartHandler" do
+#  source "#{node.chef_handler.handler_path}/etckeeper-handler.rb"
+#  action :enable
+#  supports ({:report => false, :exception => false, :start => true})
+#end
+
+file "/etc/chef/client.d/etckeeper-handler.rb" do
+  content "require '#{node[:chef_handler][:handler_path]}/etckeeper-handler.rb'
+# start_handlers << Etckeeper::StartHandler.new
 end
