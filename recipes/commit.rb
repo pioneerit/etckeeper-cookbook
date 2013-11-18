@@ -28,20 +28,18 @@ end
 chef_handler "Etckeeper::CommitHandler" do
   source "#{node.chef_handler.handler_path}/etckeeper-handler.rb"
   action :enable
-  supports ({:report => true, :exception => true, :start => false})
+  supports ({:report => true, :exception => true})
 end
 
-# As we currently don't know, how to fail the chef-run from a start handler,
-# this is pretty useless. We can see, whether changes have been made, but we
-# can't do anything else (than maybe commit them)
-#
-# chef_handler "Etckeeper::StartHandler" do
-#  source "#{node.chef_handler.handler_path}/etckeeper-handler.rb"
-#  action :enable
-#  supports ({:report => false, :exception => false, :start => true})
-#end
+chef_handler "Etckeeper::StartHandler" do
+  source "#{node.chef_handler.handler_path}/etckeeper-handler.rb"
+  action :enable
+  supports :start => true
+end
 
 file "/etc/chef/client.d/etckeeper-handler.rb" do
-  content "require '#{node[:chef_handler][:handler_path]}/etckeeper-handler.rb'
-# start_handlers << Etckeeper::StartHandler.new
+  content  <<-EOQ
+require '#{node[:chef_handler][:handler_path]}/etckeeper-handler.rb'
+start_handlers << Etckeeper::StartHandler.new
+EOQ
 end

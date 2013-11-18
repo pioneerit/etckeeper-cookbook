@@ -1,48 +1,74 @@
 require 'rubygems'
 require 'chef/log'
+require 'chef/mixin/shell_out'
 
 module Etckeeper
 
-  # THIS PART IS CURRENTLY NOT USED!!
-  class StartHandler < Chef::Handler
+  class StartHandler < ::Chef::Handler
     def report
       Chef::Log.info "Etckeeper::StartHandler inspecting /etc"
 
-      if is_git_repo?
-        if unclean?
-          Chef::Application.fatal! "/etc is NOT clean"
+      if Etckeeper::Helpers.is_git_repo?
+        if Etckeeper::Helpers.unclean?
+
+          Chef::Log.error "Found changes to /etc: " + Etckeeper::Helpers.git_diff
+          Chef::Application.fatal! "/etc is NOT clean. Stopping chef-run"
         else
-          Chef::Log.info "/etc seems clean, continuing"
+          Chef::Log.debug "/etc seems clean, continuing"
         end
 
       else
-        Chef::Log.warn "/etc seems to be not a git repositry"
+        Chef::Log.warn "/etc seems to be not a Git repositry"
       end
     end
 
-    def is_git_repo?
-      `cd /etc; git status 2>&1`
-      return $?.success?
-    end
-
-    def unclean?
-      `etckeeper unclean`
-      return $?.success?
+    # we are overriding this method in order to be able to fail the chef run
+    # (all the handlers are called in a way that all their exceptions are caught)
+    def run_report_safely(run_status)
+      run_report_unsafe(run_status)
     end
   end
 
-
-  class CommitHandler < Chef::Handler
+  class CommitHandler < ::Chef::Handler
     def report
-      Chef::Log.info "Persisting changes of current chef run for /etc/"
+      unless Etckeeper::Helpers.unclean?
+        Chef::Log.debug "Etckeeper::CommitHandler: /etc was not touched by this chef-run"
+        return
+      end
 
-      # only commit when status is success ???
-      message = "chef-client on #{node.name}: " + (run_status.success? ? 'success' : 'failed') +
-      "\nFormatted Exception: #{run_status.formatted_exception}" +
-      ("\nUpdated resources: #{run_status.updated_resources.join("\n")}")
+      Chef::Log.info "Etckeeper::CommitHandler persisting changes of current chef run for /etc"
+      Chef::Log.debug Etckeeper::Helpers.git_diff
 
-      Chef::Log.debug `etckeeper commit "#{message}"`
+      # build the commit message
+      message = []
+      message << "chef-client on #{node.name}: " + (exception ? "failed" : "success")
+      message << ""
+      message << ("Formatted Exception:\n" + run_status.formatted_exception + "\n") if exception
+      message << "Updated resources:"
+      run_status.updated_resources.each do |res|
+        message << "* #{res}"
+      end
+
+      Chef::Log.debug `etckeeper commit "#{message.join("\n")}"`
     end
   end
 
+  class Helpers
+    extend Chef::Mixin::ShellOut
+
+    def self.is_git_repo?
+      File.directory?("/etc/.git")
+    end
+
+    def self.unclean?
+      so = shell_out("etckeeper unclean")
+      return so.exitstatus == 0
+    end
+
+    def self.git_diff
+      so = shell_out("cd /etc; git diff")
+      return so.stdout
+    end
+
+  end
 end
