@@ -1,4 +1,4 @@
-default['etckeeper']['packages']   = %w{etckeeper git}
+default['etckeeper']['packages']   = %w{etckeeper}
 default['etckeeper']['dir']        = "/etc/etckeeper"
 default['etckeeper']['config']     = "#{node['etckeeper']['dir']}/etckeeper.conf"
 default['etckeeper']['vcs']        = "git"

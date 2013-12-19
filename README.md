@@ -25,6 +25,15 @@ Usage
  * Set at atribute for git repo. For example `default['etckeeper']['git_repo'] = "myuser/myrepo.git"`
 * Add to run_list `recipe['etckeeper']`
 
+
+Etckeeper::Commit
+=================
+
+This recipe will do two things
+
+* In the beginning of the chef-run, check if `/etc` is unclean. If yes, fail the chef-run.
+* After the chef-run, a report handler will commit the changes made to `/etc` during this chef-run.
+
 TODO
 =====
 1. Add more info
