@@ -39,12 +39,13 @@ This recipe will do two things
 * In the beginning of the chef-run, check if `/etc` is unclean. If yes, fail the chef-run.
 * After the chef-run, a report handler will commit the changes made to `/etc` during this chef-run.
 
-TODO
-====
-* Add authenticity of git_host automaticly
 
 Changelog
 =========
+1.0.2
+-----
+* Use StrictHostKeyChecking for disable authenticity host checking
+
 1.0.1
 -----
 * Merge with TYPO3
