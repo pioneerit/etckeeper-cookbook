@@ -16,16 +16,6 @@ end
 depends "chef_handler"
 depends "git"
 
-default['etckeeper']['dir']        = "/etc/etckeeper"
-default['etckeeper']['config']     = "#{node['etckeeper']['dir']}/etckeeper.conf"
-default['etckeeper']['vcs']        = "git"
-default['etckeeper']['git_host']   = "github.com"
-default['etckeeper']['git_port']   = 22
-default['etckeeper']['git_repo']   = "etckeeper"
-default['etckeeper']['git_branch'] = node['fqdn']
-default['etckeeper']['use_remote'] = false
-
-
 attribute "etckeeper/dir",
 	:display_name => "Path for etckeeper dir",
 	:description => "Default path from package",
