@@ -41,7 +41,7 @@ This recipe will do two things
 
 TODO
 ====
-- [ ] Add authenticity of git_host automaticly
+* Add authenticity of git_host automaticly
 
 Changelog
 =========
