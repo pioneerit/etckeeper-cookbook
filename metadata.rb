@@ -1,5 +1,5 @@
 name             "etckeeper"
-maintainer       "Steffen Gebert, Bastian Bringenberg, Peter Niederlag / TYPO3 Association (based on work by Alexander Saharchuk)"
+maintainer       "Alexander Saharchuk and Steffen Gebert, Bastian Bringenberg, Peter Niederlag / TYPO3 Association"
 maintainer_email "alexander@saharchuk.com"
 license          "Apache 2.0"
 description      "Installs/Configures etckeeper"

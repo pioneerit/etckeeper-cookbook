@@ -1,7 +1,11 @@
 Description
 ===========
-Install and configure etckeeper. Add cron task for every day commit & push changes to remote repo.
-Thanks to [alekschumakov88](https://github.com/alekschumakov88), who created the first version of this cookbook.
+Install and configure etckeeper.
+Thanks to [alekschumakov88](https://github.com/alekschumakov88)
+And maintainers from [TYPO3 Association](https://github.com/TYPO3-cookbooks):
+* Steffen Gebert*
+* Bastian Bringenberg*
+* Peter Niederlag*
 
 Requirements
 ============
@@ -35,6 +39,9 @@ This recipe will do two things
 * In the beginning of the chef-run, check if `/etc` is unclean. If yes, fail the chef-run.
 * After the chef-run, a report handler will commit the changes made to `/etc` during this chef-run.
 
+TODO
+====
+* Add authenticity of git_host automaticly
 
 Changelog
 =========
