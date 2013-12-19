@@ -1,11 +1,11 @@
 Description
 ===========
-Install and configure etckeeper. 
-Thanks to [alekschumakov88](https://github.com/alekschumakov88). 
-And maintainers from [TYPO3 Association](https://github.com/TYPO3-cookbooks):
-* Steffen Gebert*
-* Bastian Bringenberg*
-* Peter Niederlag*
+Install and configure etckeeper.
+Thanks to [alekschumakov88](https://github.com/alekschumakov88) for begining.
+And thank maintainers from [TYPO3 Association](https://github.com/TYPO3-cookbooks):
+* *Steffen Gebert*
+* *Bastian Bringenberg*
+* *Peter Niederlag*
 
 Requirements
 ============
@@ -41,7 +41,7 @@ This recipe will do two things
 
 TODO
 ====
-* Add authenticity of git_host automaticly
+- [ ] Add authenticity of git_host automaticly
 
 Changelog
 =========
