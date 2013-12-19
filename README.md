@@ -1,7 +1,7 @@
 Description
 ===========
-Install and configure etckeeper.
-Thanks to [alekschumakov88](https://github.com/alekschumakov88)
+Install and configure etckeeper. 
+Thanks to [alekschumakov88](https://github.com/alekschumakov88). 
 And maintainers from [TYPO3 Association](https://github.com/TYPO3-cookbooks):
 * Steffen Gebert*
 * Bastian Bringenberg*
