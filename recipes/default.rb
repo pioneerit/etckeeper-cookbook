@@ -18,8 +18,10 @@
 
 include_recipe "git"
 
-node['etckeeper']['packages'].each do |pckg|
-  package pckg
+package "etckeeper" do
+	action :install
 end
+
+
 
 include_recipe "etckeeper::config"

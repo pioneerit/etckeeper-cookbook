@@ -14,8 +14,8 @@ Vagrant.configure("2") do |config|
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   config.vm.box_url = "http://boxes.datenbetrieb.de/debian-7-amd64-base.box"
-  
-  #      
+
+  #
   # Assign this VM to a host-only network IP, allowing you to access it
   # via the IP. Host-only networks can talk to the host machine as well as
   # any other machines on the same network, but cannot be accessed (through this
@@ -76,7 +76,7 @@ Vagrant.configure("2") do |config|
         :server_repl_password => 'replpass'
       },
       :etckeeper => {
-        :git_remote_enabled => false
+        :use_remote => false
       },
       :chef_handler => {
         :handler_path => '/var/chef/handlers'

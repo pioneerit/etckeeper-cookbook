@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+
+if ! grep origin /etc/.git/config
+then
+	git remote add origin <%= node['etckeeper']['git_host']}:#{node['etckeeper']['git_repo'] %>
+  git checkout -b <%= node['etckeeper']['git_branch'] %>
+fi
+
+git push origin <%= node['etckeeper']['git_branch']%>
