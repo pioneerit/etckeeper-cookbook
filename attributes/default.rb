@@ -1,6 +1,7 @@
 default['etckeeper']['dir']        = "/etc/etckeeper"
 default['etckeeper']['config']     = "#{node['etckeeper']['dir']}/etckeeper.conf"
 default['etckeeper']['vcs']        = "git"
+default['etckeeper']['daily_auto_commits'] = true
 default['etckeeper']['use_remote'] = false
 default['etckeeper']['git_host']   = "github.com"
 default['etckeeper']['git_port']   = 22
