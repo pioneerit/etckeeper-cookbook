@@ -24,7 +24,7 @@ DARCS_COMMIT_OPTIONS="-a"
 # Uncomment to avoid etckeeper committing existing changes to
 # /etc before installation. It will cancel the installation,
 # so you can commit the changes by hand.
-#AVOID_COMMIT_BEFORE_INSTALL=1
+<%= node['etckeeper']['commit_before_install'] ? "#" : "" %>AVOID_COMMIT_BEFORE_INSTALL=1
 
 # The high-level package manager that's being used.
 # (apt, pacman-g2, yum etc)
