@@ -15,16 +15,16 @@ DARCS_COMMIT_OPTIONS="-a"
 
 # Uncomment to avoid etckeeper committing existing changes
 # to /etc automatically once per day.
-#AVOID_DAILY_AUTOCOMMITS=1
+<%= node['etckeeper']['daily_auto_commits'] ? "#" : "" %>AVOID_DAILY_AUTOCOMMITS=1
 
 # Uncomment the following to avoid special file warning
 # (the option is enabled automatically by cronjob regardless).
-#AVOID_SPECIAL_FILE_WARNING=1
+<%= node['etckeeper']['special_file_warning'] ? "#" : "" %>AVOID_SPECIAL_FILE_WARNING=1
 
 # Uncomment to avoid etckeeper committing existing changes to
 # /etc before installation. It will cancel the installation,
 # so you can commit the changes by hand.
-#AVOID_COMMIT_BEFORE_INSTALL=1
+<%= node['etckeeper']['commit_before_install'] ? "#" : "" %>AVOID_COMMIT_BEFORE_INSTALL=1
 
 # The high-level package manager that's being used.
 # (apt, pacman-g2, yum etc)
