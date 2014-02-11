@@ -17,4 +17,7 @@ when "centos", "redhat", "amazon", "scientific","fedora"
 when "ubuntu","debian"
   default['etckeeper']['high_pckg_man'] = "apt"
   default['etckeeper']['low_pckg_man'] = "dpkg"
+when "gentoo"
+  default['etckeeper']['high_pckg_man'] = "emerge"
+  default['etckeeper']['low_pckg_man'] = "qlist"
 end

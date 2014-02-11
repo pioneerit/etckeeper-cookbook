@@ -9,7 +9,7 @@ recipe           "etckeeper", "Install etckeeper and start local using etckeeper
 recipe           "etckeeper::config", "Config etckeeper. Set VCS for local using. And add hooks if remote repo using"
 recipe           "etckeeper::commit", "Use with chef-run"
 
-%w{redhat centos scientific fedora debian ubuntu arch freebsd amazon}.each do |os|
+%w{redhat centos scientific fedora debian ubuntu arch freebsd amazon gentoo}.each do |os|
   supports os
 end
 
