@@ -7,7 +7,7 @@ if node['etckeeper']['use_remote']
   directory "/root/.ssh" do
     owner "root"
     group "root"
-    mode "0755"
+    mode "0700"
     action :create
   end
 
