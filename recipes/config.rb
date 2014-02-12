@@ -1,13 +1,13 @@
 template node['etckeeper']['config'] do
-    source "etckeeper.conf.erb"
-    mode 0644
+  source "etckeeper.conf.erb"
+  mode 0644
 end
 
 if node['etckeeper']['use_remote']
   directory "/root/.ssh" do
     owner "root"
     group "root"
-    mode "0755"
+    mode "0700"
     action :create
   end
 
@@ -22,20 +22,21 @@ if node['etckeeper']['use_remote']
     mode "0600"
   end
 
-  template "#{node['etckeeper']['dir']}/commit.d/60vcs-commit-push" do
-    source "60vcs-commit-push.erb"
-    mode "0755"
+  execute "git remote add origin #{node['etckeeper']['git_host']}:#{node['etckeeper']['git_repo']}" do
+    cwd '/etc'
+    not_if 'git config --get remote.origin.url'
   end
 
+  execute "git push --set-upstream origin #{node['etckeeper']['git_branch']}" do
+    cwd '/etc'
+    not_if 'git config --get branch.master.remote'
+  end
+end
+
+if node['etckeeper']['daily_auto_commits']
   template "/etc/cron.daily/etckeeper" do
     source "etckeeper.erb"
     mode "0755"
     owner "root"
-  end
-end
-
-if ! node['etckeeper']['use_remote']
-  file "#{node['etckeeper']['dir']}/commit.d/60vcs-commit-push" do
-    action :delete
   end
 end
