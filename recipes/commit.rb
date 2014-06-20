@@ -28,7 +28,7 @@ end
 chef_handler "Etckeeper::CommitHandler" do
   source "#{node.chef_handler.handler_path}/etckeeper-handler.rb"
   action :enable
-  supports ({:report => true, :exception => true})
+  supports({:report => true, :exception => true})
 end
 
 chef_handler "Etckeeper::StartHandler" do
@@ -37,9 +37,3 @@ chef_handler "Etckeeper::StartHandler" do
   supports :start => true
 end
 
-file "/etc/chef/client.d/etckeeper-handler.rb" do
-  content  <<-EOQ
-require '#{node[:chef_handler][:handler_path]}/etckeeper-handler.rb'
-start_handlers << Etckeeper::StartHandler.new
-EOQ
-end

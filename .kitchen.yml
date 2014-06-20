@@ -23,5 +23,7 @@ platforms:
 
 suites:
 - name: default
-  run_list: ["recipe[etckeeper]"]
+  run_list:
+  - "recipe[etckeeper::commit]"
+  - "recipe[etckeeper]"
   attributes: {}
