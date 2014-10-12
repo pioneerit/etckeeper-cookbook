@@ -16,6 +16,10 @@ describe 'etckeeper::default' do
     expect(chef_run).to install_package('etckeeper')
   end
 
+  it 'deletes an existing bzr directory' do
+    expect(chef_run).to delete_directory('/etc/.bzr')
+  end
+
   it 'includes etckeeper::config' do
     expect(chef_run).to include_recipe('etckeeper::config')
   end
