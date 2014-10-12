@@ -20,6 +20,10 @@ default['etckeeper']['git_port'] = "22"
 default['etckeeper']['git_repo'] = "etckeeper"
 default['etckeeper']['git_branch'] = node['fqdn']
 
+default['etckeeper']['daily_auto_commits'] = true
+default['etckeeper']['special_file_warning'] = true
+default['etckeeper']['commit_before_install'] = true
+
 default['etckeeper']['use_remote'] = true
 ```
 
@@ -42,12 +46,28 @@ This recipe will do two things
 
 Changelog
 =========
+
+1.0.3
+-----
+
+* new attributes, by Yuya.Nishida (@nishidayuya)
+    * daily_auto_commits
+    * special_file_warning
+    * commit_before_install
+* gentoo support, by Florian Eitel (@nougad)
+* fixes to cron job, by Florian Eitel (@nougad)
+* use etckeeper internal cpmmit push functionality, by Florian Eitel (@nougad)
+* tighter permissions for /root/.ssh, by Florian Eitel (@nougad)
+* removed old chef handler, by @arr-dev
+
 1.0.2
 -----
+
 * Use StrictHostKeyChecking for disable authenticity host checking
 
 1.0.1
 -----
+
 * Merge with TYPO3
 * Remove unnecessary attributes
 * Remove manual adding cron task - only change cron.daily screept if use remote

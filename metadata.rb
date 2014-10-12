@@ -32,3 +32,15 @@ attribute "etckeeper/use_remote",
   :display_name => "etckeeper flag for remote repo using",
   :description => "Using with git remote repo",
   :default => "false"
+attribute "etckeeper/daily_auto_commits",
+  :display_name => "etckeeper daily auto commits",
+  :description => "Do etckeeper commits every day",
+  :default => true
+attribute "etckeeper/special_file_warning",
+  :display_name => "suppress etckeeper special file warning",
+  :description => "suppress etckeeper special file warning",
+  :default => true
+attribute "etckeeper/commit_before_install",
+  :display_name => "etckeeper commit before install",
+  :description => "do daily etckeeper commit",
+  :default => true
