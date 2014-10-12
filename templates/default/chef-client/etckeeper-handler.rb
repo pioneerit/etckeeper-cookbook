@@ -73,12 +73,12 @@ module Etckeeper
 
     def self.unclean?
       so = shell_out('etckeeper unclean')
-      return so.exitstatus == 0
+      so.exitstatus == 0
     end
 
     def self.git_diff
       so = shell_out('cd /etc; git diff')
-      return so.stdout
+      so.stdout
     end
   end
 end
