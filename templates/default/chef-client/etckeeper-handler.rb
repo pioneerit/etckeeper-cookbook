@@ -10,7 +10,9 @@ module Etckeeper
       if Etckeeper::Helpers.is_git_repo?
         if Etckeeper::Helpers.unclean?
 
-          Chef::Log.error 'Found changes to /etc: ' + Etckeeper::Helpers.git_diff
+          Chef::Log.error(
+            'Found changes to /etc: ' + Etckeeper::Helpers.git_diff
+          )
           Chef::Application.fatal! '/etc is NOT clean. Stopping chef-run'
         else
           Chef::Log.debug '/etc seems clean, continuing'
@@ -22,7 +24,8 @@ module Etckeeper
     end
 
     # we are overriding this method in order to be able to fail the chef run
-    # (all the handlers are called in a way that all their exceptions are caught)
+    # (all the handlers are called in a way that all their exceptions are
+    # caught)
     def run_report_safely(run_status)
       run_report_unsafe(run_status)
     end
@@ -31,18 +34,27 @@ module Etckeeper
   class CommitHandler < ::Chef::Handler
     def report
       unless Etckeeper::Helpers.unclean?
-        Chef::Log.debug 'Etckeeper::CommitHandler: /etc was not touched by this chef-run'
+        Chef::Log.debug(
+         'Etckeeper::CommitHandler: /etc was not touched by this chef-run'
+        )
         return
       end
 
-      Chef::Log.info 'Etckeeper::CommitHandler persisting changes of current chef run for /etc'
+      Chef::Log.info(
+        'Etckeeper::CommitHandler persisting changes of current chef run ' \
+        'for /etc'
+      )
       Chef::Log.debug Etckeeper::Helpers.git_diff
 
       # build the commit message
       message = []
-      message << "chef-client on #{node.name}: " + (exception ? 'failed' : 'success')
+      message << "chef-client on #{node.name}: " + (
+        exception ? 'failed' : 'success'
+      )
       message << ''
-      message << ("Formatted Exception:\n" + run_status.formatted_exception + "\n") if exception
+      message << (
+        "Formatted Exception:\n" + run_status.formatted_exception + "\n"
+      ) if exception
       message << 'Updated resources:'
       run_status.updated_resources.each do |res|
         message << "* #{res}"

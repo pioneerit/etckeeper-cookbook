@@ -22,7 +22,8 @@ if node['etckeeper']['use_remote']
     mode '0600'
   end
 
-  execute "git remote add origin #{node['etckeeper']['git_host']}:#{node['etckeeper']['git_repo']}" do
+  origin = "#{node['etckeeper']['git_host']}:#{node['etckeeper']['git_repo']}"
+  execute "git remote add origin #{origin}" do
     cwd '/etc'
     not_if 'git config --get remote.origin.url'
   end
