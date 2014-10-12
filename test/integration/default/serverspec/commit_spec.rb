@@ -14,4 +14,9 @@ describe 'etckeeper::commit' do
       )
     end
   end
+
+  describe file('/etc/chef/client.d/etckeeper-handler.rb') do
+    it { should_not be_file }
+  end
+
 end

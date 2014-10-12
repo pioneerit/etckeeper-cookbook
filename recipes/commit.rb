@@ -21,6 +21,11 @@
 
 include_recipe 'chef_handler::default'
 
+# clean up after old etckeeper recipe (<1.0.3)
+file '/etc/chef/client.d/etckeeper-handler.rb' do
+  action :delete
+end
+
 template "#{node['chef_handler']['handler_path']}/etckeeper_handler.rb" do
   source 'chef-client/etckeeper_handler.rb'
 end

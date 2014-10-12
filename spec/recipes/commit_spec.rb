@@ -8,6 +8,10 @@ describe 'etckeeper::commit' do
     ChefSpec::Runner.new.converge(described_recipe)
   end
 
+  it 'deletes the chef-handler include from the old cookbook' do
+    expect(chef_run).to delete_file('/etc/chef/client.d/etckeeper-handler.rb')
+  end
+
   it 'installs the handler code' do
     expect(chef_run).to create_template(
       "#{chef_run.node['chef_handler']['handler_path']}/etckeeper_handler.rb"
