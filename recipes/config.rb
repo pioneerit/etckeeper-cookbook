@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 template node['etckeeper']['config'] do
   source 'etckeeper.conf.erb'
   mode 0644
