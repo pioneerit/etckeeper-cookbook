@@ -14,3 +14,7 @@ group :test do
   gem 'rubocop',    '~> 0.26.1'
   gem 'foodcritic', '~> 4.0'
 end
+
+group :openstack do
+  gem 'kitchen-openstack'
+end
