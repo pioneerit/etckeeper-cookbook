@@ -7,7 +7,7 @@ module Etckeeper
     def report
       Chef::Log.info 'Etckeeper::StartHandler inspecting /etc'
 
-      if Etckeeper::Helpers.is_git_repo?
+      if Etckeeper::Helpers.git_repo?
         if Etckeeper::Helpers.unclean?
 
           Chef::Log.error(
@@ -67,7 +67,7 @@ module Etckeeper
   class Helpers
     extend Chef::Mixin::ShellOut
 
-    def self.is_git_repo?
+    def self.git_repo?
       File.directory?('/etc/.git')
     end
 
