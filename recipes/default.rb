@@ -19,7 +19,7 @@
 include_recipe 'git'
 
 package 'etckeeper' do
-	action :install
+  action :install
 end
 
 include_recipe 'etckeeper::config'

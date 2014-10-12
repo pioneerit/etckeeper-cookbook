@@ -28,7 +28,7 @@ end
 chef_handler 'Etckeeper::CommitHandler' do
   source "#{node.chef_handler.handler_path}/etckeeper-handler.rb"
   action :enable
-  supports({:report => true, :exception => true})
+  supports({ :report => true, :exception => true })
 end
 
 chef_handler 'Etckeeper::StartHandler' do

@@ -17,18 +17,18 @@ depends "chef_handler"
 depends "git"
 
 attribute "etckeeper/dir",
-	:display_name => "Path for etckeeper dir",
-	:description => "Default path from package",
-	:default => "/etc/etckeeper"
+  :display_name => "Path for etckeeper dir",
+  :description => "Default path from package",
+  :default => "/etc/etckeeper"
 attribute "etckeeper/config",
-	:display_name => "Path for etckeeper config",
-	:description => "Default path from package",
-	:default => "/etc/etckeeper/etckeeper.conf"
+  :display_name => "Path for etckeeper config",
+  :description => "Default path from package",
+  :default => "/etc/etckeeper/etckeeper.conf"
 attribute "etckeeper/vcs",
-	:display_name => "VCS in etckeeper",
-	:description => "Type of VCS which using at etckeeper",
-	:default => "git"
+  :display_name => "VCS in etckeeper",
+  :description => "Type of VCS which using at etckeeper",
+  :default => "git"
 attribute "etckeeper/use_remote",
-	:display_name => "etckeeper flag for remote repo using",
-	:description => "Using with git remote repo",
-	:default => "false"
+  :display_name => "etckeeper flag for remote repo using",
+  :description => "Using with git remote repo",
+  :default => "false"

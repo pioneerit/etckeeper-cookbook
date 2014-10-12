@@ -11,10 +11,10 @@ default['etckeeper']['git_repo']   = 'etckeeper'
 default['etckeeper']['git_branch'] = node['fqdn']
 
 case node['platform']
-when 'centos', 'redhat', 'amazon', 'scientific','fedora'
+when 'centos', 'redhat', 'amazon', 'scientific', 'fedora'
   default['etckeeper']['high_pckg_man'] = 'yum'
   default['etckeeper']['low_pckg_man'] = 'rpm'
-when 'ubuntu','debian'
+when 'ubuntu', 'debian'
   default['etckeeper']['high_pckg_man'] = 'apt'
   default['etckeeper']['low_pckg_man'] = 'dpkg'
 when 'gentoo'
