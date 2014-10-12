@@ -9,5 +9,5 @@ cookbook "chef_handler"
 #cookbook "chef-solo-search", github: "edelight/chef-solo-search"
 #cookbook "git"
 
-site :opscode
+source "https://supermarket.getchef.com"
 metadata
