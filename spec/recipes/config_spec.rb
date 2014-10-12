@@ -4,6 +4,14 @@ require 'spec_helper'
 
 describe 'etckeeper::config' do
 
+  git_cmd = 'git --git-dir=/etc/.git'
+
+  before do
+    stub_command(
+      "#{git_cmd} config --get user.email | fgrep -q 'root@fauxhai.local'"
+    ).and_return(true)
+  end
+
   cached(:chef_run) do
     ChefSpec::Runner.new.converge(described_recipe)
   end
@@ -34,9 +42,9 @@ describe 'etckeeper::config' do
 
   context 'with attribute use_remote' do
     before do
-      stub_command('git config --get remote.origin.url')
+      stub_command("#{git_cmd} config --get remote.origin.url")
         .and_return(false)
-      stub_command('git config --get branch.master.remote')
+      stub_command("#{git_cmd} config --get branch.master.remote")
         .and_return(false)
     end
 
@@ -74,15 +82,17 @@ describe 'etckeeper::config' do
       it 'adds the configured origin' do
         host = chef_run.node['etckeeper']['git_host']
         repo = chef_run.node['etckeeper']['git_repo']
-        expect(chef_run).to run_execute("git remote add origin #{host}:#{repo}")
+        expect(chef_run).to run_execute(
+          "#{git_cmd} remote add origin #{host}:#{repo}"
+        )
       end
     end
 
     context 'with set git remote' do
       before do
-        stub_command('git config --get remote.origin.url')
+        stub_command("#{git_cmd} config --get remote.origin.url")
           .and_return('something')
-        stub_command('git config --get branch.master.remote')
+        stub_command("#{git_cmd} config --get branch.master.remote")
           .and_return('something')
       end
 
@@ -96,16 +106,16 @@ describe 'etckeeper::config' do
         host = chef_run.node['etckeeper']['git_host']
         repo = chef_run.node['etckeeper']['git_repo']
         expect(chef_run).not_to run_execute(
-          "git remote add origin #{host}:#{repo}"
+          "#{git_cmd} remote add origin #{host}:#{repo}"
         )
       end
     end
 
     context 'without set remote git branch' do
       before do
-        stub_command('git config --get remote.origin.url')
+        stub_command("#{git_cmd} config --get remote.origin.url")
           .and_return('something')
-        stub_command('git config --get branch.master.remote')
+        stub_command("#{git_cmd} config --get branch.master.remote")
           .and_return(false)
       end
 
@@ -118,16 +128,16 @@ describe 'etckeeper::config' do
       it 'sets the branch' do
         branch = chef_run.node['etckeeper']['git_branch']
         expect(chef_run).to run_execute(
-          "git push --set-upstream origin #{branch}"
+          "#{git_cmd} push --set-upstream origin #{branch}"
         )
       end
     end
 
     context 'with existing remote git branch' do
       before do
-        stub_command('git config --get remote.origin.url')
+        stub_command("#{git_cmd} config --get remote.origin.url")
           .and_return('something')
-        stub_command('git config --get branch.master.remote')
+        stub_command("#{git_cmd} config --get branch.master.remote")
           .and_return('something')
       end
 
@@ -140,7 +150,7 @@ describe 'etckeeper::config' do
       it 'does not set the branch' do
         branch = chef_run.node['etckeeper']['git_branch']
         expect(chef_run).not_to run_execute(
-          "git push --set-upstream origin #{branch}"
+          "#{git_cmd} push --set-upstream origin #{branch}"
         )
       end
     end

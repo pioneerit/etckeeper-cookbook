@@ -1,5 +1,7 @@
 # encoding: UTF-8
 
+git_cmd = 'git --git-dir=/etc/.git'
+
 template node['etckeeper']['config'] do
   source 'etckeeper.conf.erb'
   mode 0644
@@ -25,14 +27,15 @@ if node['etckeeper']['use_remote']
   end
 
   origin = "#{node['etckeeper']['git_host']}:#{node['etckeeper']['git_repo']}"
-  execute "git remote add origin #{origin}" do
+  execute "#{git_cmd} remote add origin #{origin}" do
     cwd '/etc'
-    not_if 'git config --get remote.origin.url'
+    not_if "#{git_cmd} config --get remote.origin.url"
   end
 
-  execute "git push --set-upstream origin #{node['etckeeper']['git_branch']}" do
+  branch = node['etckeeper']['git_branch']
+  execute "#{git_cmd} push --set-upstream origin #{branch}" do
     cwd '/etc'
-    not_if 'git config --get branch.master.remote'
+    not_if "#{git_cmd} config --get branch.master.remote"
   end
 end
 
