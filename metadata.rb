@@ -4,7 +4,7 @@ maintainer_email "alexander@saharchuk.com"
 license          "Apache 2.0"
 description      "Installs/Configures etckeeper"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "1.0.2"
+version          "1.0.3"
 recipe           "etckeeper", "Install etckeeper and start local using etckeeper with etckeeper::config"
 recipe           "etckeeper::config", "Config etckeeper. Set VCS for local using. And add hooks if remote repo using"
 recipe           "etckeeper::commit", "Use with chef-run"
