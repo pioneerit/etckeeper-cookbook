@@ -21,4 +21,18 @@ describe 'etckeeper::config' do
     end
   end
 
+  describe file('/etc/.git') do
+    it { should be_directory }
+    it { should be_owned_by 'root' }
+    it { should be_grouped_into 'root' }
+    it { should be_mode 700 }
+  end
+
+  describe file('/etc/.git/config') do
+    it { should be_file }
+    it { should be_owned_by 'root' }
+    it { should be_grouped_into 'root' }
+    it { should be_mode 644 }
+  end
+
 end

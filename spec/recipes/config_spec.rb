@@ -40,6 +40,38 @@ describe 'etckeeper::config' do
     end
   end
 
+  context 'without existing git repository' do
+    before do
+      allow(File).to receive(:exist?)
+        .and_call_original
+      allow(File).to receive(:exist?)
+        .with('/etc/.git/config')
+        .and_return(false)
+    end
+
+    cached(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
+
+    it 'runs "etckeeper init"' do
+      expect(chef_run).to run_execute('etckeeper init')
+    end
+  end
+
+  context 'with existing git repository' do
+    before do
+      allow(File).to receive(:exist?)
+        .and_call_original
+      allow(File).to receive(:exist?)
+        .with('/etc/.git/config')
+        .and_return(true)
+    end
+
+    cached(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
+
+    it 'does not run "etckeeper init" again' do
+      expect(chef_run).not_to run_execute('etckeeper init')
+    end
+  end
+
   context 'with attribute use_remote' do
     before do
       stub_command("#{git_cmd} config --get remote.origin.url")

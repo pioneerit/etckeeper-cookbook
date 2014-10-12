@@ -7,6 +7,12 @@ template node['etckeeper']['config'] do
   mode 0644
 end
 
+execute 'etckeeper init' do
+  only_if { node['etckeeper']['vcs'] == 'git' }
+  not_if { File.exist?('/etc/.git/config') }
+  cwd '/etc'
+end
+
 if node['etckeeper']['use_remote']
   directory '/root/.ssh' do
     owner 'root'
