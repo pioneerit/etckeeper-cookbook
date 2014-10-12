@@ -3,7 +3,6 @@ require 'chef/log'
 require 'chef/mixin/shell_out'
 
 module Etckeeper
-
   class StartHandler < ::Chef::Handler
     def report
       Chef::Log.info "Etckeeper::StartHandler inspecting /etc"
@@ -69,6 +68,5 @@ module Etckeeper
       so = shell_out("cd /etc; git diff")
       return so.stdout
     end
-
   end
 end

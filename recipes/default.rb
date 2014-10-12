@@ -22,6 +22,4 @@ package "etckeeper" do
 	action :install
 end
 
-
-
 include_recipe "etckeeper::config"

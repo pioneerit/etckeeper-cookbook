@@ -36,4 +36,3 @@ chef_handler "Etckeeper::StartHandler" do
   action :enable
   supports :start => true
 end
-
