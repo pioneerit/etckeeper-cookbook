@@ -1,0 +1,9 @@
+AllCops:
+  Exclude:
+    - metadata.rb
+    - Vagrantfile
+    - Thorfile
+Documentation:
+  Enabled: false
+Metrics/MethodLength:
+  Max: 27
