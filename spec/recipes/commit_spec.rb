@@ -10,7 +10,7 @@ describe 'etckeeper::commit' do
 
   it 'installs the handler code' do
     expect(chef_run).to create_template(
-      "#{chef_run.node['chef_handler']['handler_path']}/etckeeper-handler.rb"
+      "#{chef_run.node['chef_handler']['handler_path']}/etckeeper_handler.rb"
     )
   end
 
