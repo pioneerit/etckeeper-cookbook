@@ -11,4 +11,5 @@ group :test do
   gem 'rake'
   gem 'chefspec',   '~> 4.0.2'
   gem 'rubocop',    '~> 0.26.1'
+  gem 'foodcritic', '~> 4.0'
 end
