@@ -34,10 +34,9 @@ if node['etckeeper']['use_remote']
   end
 end
 
-if node['etckeeper']['daily_auto_commits']
-  template '/etc/cron.daily/etckeeper' do
-    source 'etckeeper.erb'
-    mode '0755'
-    owner 'root'
-  end
+template '/etc/cron.daily/etckeeper' do
+  source 'etckeeper.erb'
+  mode '0755'
+  owner 'root'
+  only_if { node['etckeeper']['daily_auto_commits'] }
 end
