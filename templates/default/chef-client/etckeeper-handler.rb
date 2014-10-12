@@ -5,19 +5,19 @@ require 'chef/mixin/shell_out'
 module Etckeeper
   class StartHandler < ::Chef::Handler
     def report
-      Chef::Log.info "Etckeeper::StartHandler inspecting /etc"
+      Chef::Log.info 'Etckeeper::StartHandler inspecting /etc'
 
       if Etckeeper::Helpers.is_git_repo?
         if Etckeeper::Helpers.unclean?
 
-          Chef::Log.error "Found changes to /etc: " + Etckeeper::Helpers.git_diff
-          Chef::Application.fatal! "/etc is NOT clean. Stopping chef-run"
+          Chef::Log.error 'Found changes to /etc: ' + Etckeeper::Helpers.git_diff
+          Chef::Application.fatal! '/etc is NOT clean. Stopping chef-run'
         else
-          Chef::Log.debug "/etc seems clean, continuing"
+          Chef::Log.debug '/etc seems clean, continuing'
         end
 
       else
-        Chef::Log.warn "/etc seems to be not a Git repositry"
+        Chef::Log.warn '/etc seems to be not a Git repositry'
       end
     end
 
@@ -31,19 +31,19 @@ module Etckeeper
   class CommitHandler < ::Chef::Handler
     def report
       unless Etckeeper::Helpers.unclean?
-        Chef::Log.debug "Etckeeper::CommitHandler: /etc was not touched by this chef-run"
+        Chef::Log.debug 'Etckeeper::CommitHandler: /etc was not touched by this chef-run'
         return
       end
 
-      Chef::Log.info "Etckeeper::CommitHandler persisting changes of current chef run for /etc"
+      Chef::Log.info 'Etckeeper::CommitHandler persisting changes of current chef run for /etc'
       Chef::Log.debug Etckeeper::Helpers.git_diff
 
       # build the commit message
       message = []
-      message << "chef-client on #{node.name}: " + (exception ? "failed" : "success")
-      message << ""
+      message << "chef-client on #{node.name}: " + (exception ? 'failed' : 'success')
+      message << ''
       message << ("Formatted Exception:\n" + run_status.formatted_exception + "\n") if exception
-      message << "Updated resources:"
+      message << 'Updated resources:'
       run_status.updated_resources.each do |res|
         message << "* #{res}"
       end
@@ -56,16 +56,16 @@ module Etckeeper
     extend Chef::Mixin::ShellOut
 
     def self.is_git_repo?
-      File.directory?("/etc/.git")
+      File.directory?('/etc/.git')
     end
 
     def self.unclean?
-      so = shell_out("etckeeper unclean")
+      so = shell_out('etckeeper unclean')
       return so.exitstatus == 0
     end
 
     def self.git_diff
-      so = shell_out("cd /etc; git diff")
+      so = shell_out('cd /etc; git diff')
       return so.stdout
     end
   end

@@ -18,20 +18,20 @@
 # limitations under the License.
 #
 
-include_recipe "chef_handler::default"
+include_recipe 'chef_handler::default'
 
 template "#{node.chef_handler.handler_path}/etckeeper-handler.rb" do
-  source "chef-client/etckeeper-handler.rb"
+  source 'chef-client/etckeeper-handler.rb'
 end
 
 # We register ourself as a report handler, which runs at the end of chef run
-chef_handler "Etckeeper::CommitHandler" do
+chef_handler 'Etckeeper::CommitHandler' do
   source "#{node.chef_handler.handler_path}/etckeeper-handler.rb"
   action :enable
   supports({:report => true, :exception => true})
 end
 
-chef_handler "Etckeeper::StartHandler" do
+chef_handler 'Etckeeper::StartHandler' do
   source "#{node.chef_handler.handler_path}/etckeeper-handler.rb"
   action :enable
   supports :start => true
