@@ -44,3 +44,7 @@ attribute "etckeeper/commit_before_install",
   :display_name => "etckeeper commit before install",
   :description => "do daily etckeeper commit",
   :default => true
+attribute "etckeeper/git_email",
+  :display_name => "etckeeper git email address",
+  :description => "email address to use for git commits",
+  :default => "root@<fqdn>"

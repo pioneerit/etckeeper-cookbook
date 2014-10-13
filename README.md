@@ -19,6 +19,7 @@ default['etckeeper']['git_host'] = "github.com"
 default['etckeeper']['git_port'] = "22"
 default['etckeeper']['git_repo'] = "etckeeper"
 default['etckeeper']['git_branch'] = node['fqdn']
+default['etckeeper']['git_email'] = "root@#{node['fqdn']}"
 
 default['etckeeper']['daily_auto_commits'] = true
 default['etckeeper']['special_file_warning'] = true
@@ -46,6 +47,19 @@ This recipe will do two things
 
 Changelog
 =========
+
+1.0.4 (unreleased)
+-----
+* switched to berkshelf v3
+* added chefspec tests
+* added rubocop checks
+* added foodcritic checks
+* added travis-ci
+* added serverspec tests
+* clean up leftovers from old cookbook versions
+* remove bzr directory (for vcs git)
+* initialize etckeeper upon installation
+* set email in git config via attribute
 
 1.0.3
 -----
