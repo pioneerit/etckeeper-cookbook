@@ -19,7 +19,6 @@
 # limitations under the License.
 #
 
-
 git_cmd = 'git --git-dir=/etc/.git'
 
 template node['etckeeper']['config'] do
