@@ -13,6 +13,13 @@ execute 'etckeeper init' do
   cwd '/etc'
 end
 
+email = node['etckeeper']['git_email']
+execute 'etckeeper_set_git_email' do
+  command "#{git_cmd} config user.email '#{email}'"
+  only_if { node['etckeeper']['vcs'] == 'git' }
+  not_if "#{git_cmd} config --get user.email | fgrep -q '#{email}'"
+end
+
 if node['etckeeper']['use_remote']
   directory '/root/.ssh' do
     owner 'root'

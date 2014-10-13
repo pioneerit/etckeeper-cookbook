@@ -4,6 +4,13 @@ require 'spec_helper'
 
 describe 'etckeeper::default' do
 
+  before do
+    git_cmd = 'git --git-dir=/etc/.git'
+    stub_command(
+      "#{git_cmd} config --get user.email | fgrep -q 'root@fauxhai.local'"
+    ).and_return(true)
+  end
+
   cached(:chef_run) do
     ChefSpec::Runner.new.converge(described_recipe)
   end

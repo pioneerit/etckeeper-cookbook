@@ -26,4 +26,5 @@ suites:
   run_list:
   - "recipe[etckeeper::commit]"
   - "recipe[etckeeper]"
-  attributes: {}
+  attributes:
+    fqdn: etckeeper.example.com

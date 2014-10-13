@@ -35,4 +35,8 @@ describe 'etckeeper::config' do
     it { should be_mode 644 }
   end
 
+  describe command('git --git-dir=/etc/.git config --get user.email') do
+    its(:stdout) { should eq "root@etckeeper.example.com\n" }
+  end
+
 end

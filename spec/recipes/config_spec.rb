@@ -110,6 +110,44 @@ describe 'etckeeper::config' do
         .with_content(%r{^\s+IdentityFile\s+/root/.ssh/etckeeper_key$})
     end
 
+    context 'without email address in git config' do
+      before do
+        stub_command(
+          "#{git_cmd} config --get user.email | fgrep -q 'x@example.com'"
+        ).and_return(false)
+      end
+
+      cached(:chef_run) do
+        ChefSpec::Runner.new do |node|
+          node.set['etckeeper']['git_email'] = 'x@example.com'
+        end.converge(described_recipe)
+      end
+
+      it 'adds the email to git config' do
+        expect(chef_run).to run_execute('etckeeper_set_git_email')
+          .with(command: "#{git_cmd} config user.email 'x@example.com'")
+      end
+    end
+
+    context 'with existing user info in git config' do
+      before do
+        stub_command(
+          "#{git_cmd} config --get user.email | fgrep -q 'x@example.com'"
+        ).and_return(true)
+      end
+
+      cached(:chef_run) do
+        ChefSpec::Runner.new do |node|
+          node.set['etckeeper']['git_email'] = 'x@example.com'
+        end.converge(described_recipe)
+      end
+
+      it 'does not set the email again' do
+        expect(chef_run).not_to run_execute('etckeeper_set_git_email')
+      end
+
+    end
+
     context 'without set git remote' do
       it 'adds the configured origin' do
         host = chef_run.node['etckeeper']['git_host']
