@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Cookbook Name:: etckeeper
 # Recipe:: commit
@@ -18,22 +19,26 @@
 # limitations under the License.
 #
 
-include_recipe "chef_handler::default"
+include_recipe 'chef_handler::default'
 
-template "#{node.chef_handler.handler_path}/etckeeper-handler.rb" do
-  source "chef-client/etckeeper-handler.rb"
+# clean up after old etckeeper recipe (<1.0.3)
+file '/etc/chef/client.d/etckeeper-handler.rb' do
+  action :delete
+end
+
+template "#{node['chef_handler']['handler_path']}/etckeeper_handler.rb" do
+  source 'chef-client/etckeeper_handler.rb'
 end
 
 # We register ourself as a report handler, which runs at the end of chef run
-chef_handler "Etckeeper::CommitHandler" do
-  source "#{node.chef_handler.handler_path}/etckeeper-handler.rb"
+chef_handler 'Etckeeper::CommitHandler' do
+  source "#{node['chef_handler']['handler_path']}/etckeeper_handler.rb"
   action :enable
-  supports({:report => true, :exception => true})
+  supports report: true, exception: true
 end
 
-chef_handler "Etckeeper::StartHandler" do
-  source "#{node.chef_handler.handler_path}/etckeeper-handler.rb"
+chef_handler 'Etckeeper::StartHandler' do
+  source "#{node['chef_handler']['handler_path']}/etckeeper_handler.rb"
   action :enable
-  supports :start => true
+  supports start: true
 end
-
