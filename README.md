@@ -1,11 +1,11 @@
 Description
 ===========
 Install and configure etckeeper.
-Thanks to [alekschumakov88](https://github.com/alekschumakov88) for begining.
-And thank maintainers from [TYPO3 Association](https://github.com/TYPO3-cookbooks):
+Thanks to maintainers from [TYPO3 Association](https://github.com/TYPO3-cookbooks):
 * *Steffen Gebert*
 * *Bastian Bringenberg*
 * *Peter Niederlag*
+Thanks to [Bernhard Weisshuhn](https://github.com/bkw) for begininig.
 
 Requirements
 ============
@@ -48,8 +48,9 @@ This recipe will do two things
 Changelog
 =========
 
-1.0.4 (unreleased)
+1.0.4
 -----
+Updates from [Bernhard Weisshuhn](https://github.com/bkw):
 * switched to berkshelf v3
 * added chefspec tests
 * added rubocop checks
