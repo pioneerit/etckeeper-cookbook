@@ -21,4 +21,7 @@ when 'ubuntu', 'debian'
 when 'gentoo'
   default['etckeeper']['high_pckg_man'] = 'emerge'
   default['etckeeper']['low_pckg_man'] = 'qlist'
+when 'pld'
+  default['etckeeper']['high_pckg_man'] = 'poldek'
+  default['etckeeper']['low_pckg_man'] = 'rpm'
 end
