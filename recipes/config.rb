@@ -70,10 +70,3 @@ if node['etckeeper']['use_remote']
     not_if "#{git_cmd} config --get branch.master.remote"
   end
 end
-
-template '/etc/cron.daily/etckeeper' do
-  source 'etckeeper.erb'
-  mode '0755'
-  owner 'root'
-  only_if { node['etckeeper']['daily_auto_commits'] }
-end
