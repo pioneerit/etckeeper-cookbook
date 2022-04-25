@@ -23,19 +23,20 @@ file '/etc/chef/client.d/etckeeper-handler.rb' do
   action :delete
 end
 
-template "#{node['chef_handler']['handler_path']}/etckeeper_handler.rb" do
+file_handler = ::File.join(node['chef_handler']['handler_path'], 'etckeeper_handler.rb')
+template file_handler do
   source 'chef-client/etckeeper_handler.rb'
 end
 
 # We register ourself as a report handler, which runs at the end of chef run
 chef_handler 'Etckeeper::CommitHandler' do
-  source "#{node['chef_handler']['handler_path']}/etckeeper_handler.rb"
+  source file_handler
   action :enable
   type report: true, exception: true
 end
 
 chef_handler 'Etckeeper::StartHandler' do
-  source "#{node['chef_handler']['handler_path']}/etckeeper_handler.rb"
+  source file_handler
   action :enable
   type start: true
 end
