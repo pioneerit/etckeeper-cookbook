@@ -1,9 +1,8 @@
-# encoding: UTF-8
 #
-# Cookbook Name:: etckeeper
+# Cookbook:: etckeeper
 # Recipe:: commit
 #
-# Copyright 2012-2013, Steffen Gebert / TYPO3 Association
+# Copyright:: 2012-2013, Steffen Gebert / TYPO3 Association
 #                      Peter Niederlag / TYPO3 Association
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,8 +18,6 @@
 # limitations under the License.
 #
 
-include_recipe 'chef_handler::default'
-
 # clean up after old etckeeper recipe (<1.0.3)
 file '/etc/chef/client.d/etckeeper-handler.rb' do
   action :delete
@@ -34,11 +31,11 @@ end
 chef_handler 'Etckeeper::CommitHandler' do
   source "#{node['chef_handler']['handler_path']}/etckeeper_handler.rb"
   action :enable
-  supports report: true, exception: true
+  type report: true, exception: true
 end
 
 chef_handler 'Etckeeper::StartHandler' do
   source "#{node['chef_handler']['handler_path']}/etckeeper_handler.rb"
   action :enable
-  supports start: true
+  type start: true
 end

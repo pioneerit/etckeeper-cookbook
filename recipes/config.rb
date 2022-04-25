@@ -1,9 +1,8 @@
-# encoding: UTF-8
 #
-# Cookbook Name:: etckeeper
+# Cookbook:: etckeeper
 # Recipe:: config
 #
-# Copyright 2012-2013, Steffen Gebert / TYPO3 Association
+# Copyright:: 2012-2013, Steffen Gebert / TYPO3 Association
 #                      Peter Niederlag / TYPO3 Association
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,12 +22,12 @@ git_cmd = 'git --git-dir=/etc/.git'
 
 template node['etckeeper']['config'] do
   source 'etckeeper.conf.erb'
-  mode 0644
+  mode '644'
 end
 
 execute 'etckeeper init' do
   only_if { node['etckeeper']['vcs'] == 'git' }
-  not_if { File.exist?('/etc/.git/config') }
+  not_if { ::File.exist?('/etc/.git/config') }
   cwd '/etc'
 end
 
@@ -71,9 +70,11 @@ if node['etckeeper']['use_remote']
   end
 end
 
+# rubocop: disable Chef/Modernize/CronDFileOrTemplate
 template '/etc/cron.daily/etckeeper' do
   source 'etckeeper.erb'
   mode '0755'
   owner 'root'
   only_if { node['etckeeper']['daily_auto_commits'] }
 end
+# rubocop: enable Chef/Modernize/CronDFileOrTemplate

@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 require 'chefspec'
 require 'chefspec/server'
 require 'chefspec/berkshelf'
@@ -10,5 +8,3 @@ RSpec.configure do |config|
   config.version = '14.04'
   config.log_level = :error
 end
-
-at_exit { ChefSpec::Coverage.report! }

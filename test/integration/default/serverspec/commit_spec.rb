@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require 'spec_helper'
 
 describe 'etckeeper::commit' do
@@ -18,5 +16,4 @@ describe 'etckeeper::commit' do
   describe file('/etc/chef/client.d/etckeeper-handler.rb') do
     it { should_not be_file }
   end
-
 end
