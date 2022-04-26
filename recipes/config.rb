@@ -49,6 +49,7 @@ if node['etckeeper']['use_remote']
 
   cookbook_file '/root/.ssh/etckeeper_key' do
     source 'etckeeper_key'
+    cookbook node['etckeeper']['ssh']['key']['cookbook']
     mode '0600'
     action :create_if_missing
   end
