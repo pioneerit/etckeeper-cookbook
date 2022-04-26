@@ -1,5 +1,5 @@
 default['etckeeper']['dir'] = '/etc/etckeeper'
-default['etckeeper']['config'] = "#{node['etckeeper']['dir']}/etckeeper.conf"
+default['etckeeper']['config'] = ::File.join(node['etckeeper']['dir'], 'etckeeper.conf')
 default['etckeeper']['vcs'] = 'git'
 default['etckeeper']['daily_auto_commits'] = true
 default['etckeeper']['special_file_warning'] = true

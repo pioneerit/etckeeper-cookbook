@@ -1,9 +1,6 @@
-# encoding: UTF-8
-
 require 'spec_helper'
 
 describe 'etckeeper::commit' do
-
   cached(:chef_run) do
     ChefSpec::Runner.new.converge(described_recipe)
   end

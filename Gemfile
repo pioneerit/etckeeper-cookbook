@@ -1,18 +1,18 @@
 source 'https://rubygems.org'
 
-gem 'berkshelf', '~> 3.1.5'
+gem 'berkshelf'
 
 group :integration do
   gem 'test-kitchen'
   gem 'kitchen-vagrant'
-  gem 'serverspec', '~> 2.1.0'
+  gem 'serverspec'
 end
 
 group :test do
   gem 'rake'
-  gem 'chefspec',   '~> 4.0.2'
-  gem 'rubocop',    '~> 0.26.1'
-  gem 'foodcritic', '~> 4.0'
+  gem 'chefspec'
+  gem 'rubocop'
+  gem 'cookstyle'
 end
 
 group :openstack do

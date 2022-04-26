@@ -1,9 +1,6 @@
-# encoding: UTF-8
-
 require 'spec_helper'
 
 describe 'etckeeper::default' do
-
   before do
     git_cmd = 'git --git-dir=/etc/.git'
     stub_command(

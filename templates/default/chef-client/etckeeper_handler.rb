@@ -13,7 +13,7 @@ module Etckeeper
           Chef::Log.error(
             'Found changes to /etc: ' + Etckeeper::Helpers.git_diff
           )
-          Chef::Application.fatal! '/etc is NOT clean. Stopping chef-run'
+          raise('/etc is NOT clean. Stopping chef-run')
         else
           Chef::Log.debug '/etc seems clean, continuing'
         end
@@ -36,7 +36,7 @@ module Etckeeper
       unless Etckeeper::Helpers.unclean?
         Chef::Log.debug(
          'Etckeeper::CommitHandler: /etc was not touched by this chef-run'
-        )
+       )
         return
       end
 
