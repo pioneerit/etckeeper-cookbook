@@ -5,6 +5,7 @@ default['etckeeper']['daily_auto_commits'] = true
 default['etckeeper']['special_file_warning'] = true
 default['etckeeper']['commit_before_install'] = true
 default['etckeeper']['use_remote'] = false
+default['etckeeper']['ssh']['key']['cookbook'] = 'etckeeper'
 default['etckeeper']['git_host'] = 'github.com'
 default['etckeeper']['git_port'] = 22
 default['etckeeper']['git_repo'] = 'etckeeper'
