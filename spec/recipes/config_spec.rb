@@ -13,21 +13,8 @@ describe 'etckeeper::config' do
     is_expected.to render_file('/etc/etckeeper/etckeeper.conf')
   end
 
-  it 'creates the etckeeper cron job by default' do
-    is_expected.to create_template('/etc/cron.daily/etckeeper')
-      .with(owner: 'root')
-      .with(mode: '0755')
-    is_expected.to render_file('/etc/cron.daily/etckeeper')
-      .with_content(/etckeeper commit "daily autocommit"/)
-  end
-
   context 'with attribute daily_auto_commits set to false' do
     default_attributes['etckeeper']['daily_auto_commits'] = false
-
-    it 'does not install the etckeeper cron job' do
-      is_expected.not_to render_file('/etc/cron.daily/etckeeper')
-    end
-  end
 
   context 'without existing git repository' do
     before do
