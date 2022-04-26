@@ -48,6 +48,14 @@ This recipe will do two things
 Changelog
 =========
 
+1.0.5 (unreleased)
+-----
+Updates from [Jeremy MAURO](https://github.com/jmauro):
+* #14 make tests compliant with the latest version of Chefspec and chef
+* #15 remove the 'old' fix of the cronjob
+* #16 add the cookbook attribute on the resource that deploys the ssh key, so
+now, the user is able to override this value with a wrapper cookbook
+
 1.0.4
 -----
 Updates from [Bernhard Weisshuhn](https://github.com/bkw):
