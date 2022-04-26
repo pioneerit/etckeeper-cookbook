@@ -75,9 +75,6 @@ Vagrant.configure("2") do |config|
         :server_debian_password => 'debpass',
         :server_repl_password => 'replpass'
       },
-      :etckeeper => {
-        :use_remote => false
-      },
       :chef_handler => {
         :handler_path => '/var/chef/handlers'
       }

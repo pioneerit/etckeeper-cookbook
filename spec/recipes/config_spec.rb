@@ -7,6 +7,10 @@ describe 'etckeeper::config' do
     stub_command(
       "#{git_cmd} config --get user.email | fgrep -q 'root@fauxhai.local'"
     ).and_return(true)
+    stub_command("#{git_cmd} config --get remote.origin.url")
+      .and_return('something')
+    stub_command("#{git_cmd} config --get branch.master.remote")
+      .and_return('something')
   end
 
   it 'creates the etckeeper config file' do
@@ -45,8 +49,10 @@ describe 'etckeeper::config' do
     end
   end
 
-  context 'with attribute use_remote' do
-    default_attributes['etckeeper']['use_remote'] = true
+  context 'with attribute push git' do
+    default_attributes['etckeeper']['git_host'] = 'github.com'
+    default_attributes['etckeeper']['git_port'] = 22
+    default_attributes['etckeeper']['git_repo'] = 'etckeeper'
     before do
       stub_command("#{git_cmd} config --get remote.origin.url")
         .and_return(false)
@@ -116,7 +122,9 @@ describe 'etckeeper::config' do
     end
 
     context 'with set git remote' do
-      default_attributes['etckeeper']['use_remote'] = true
+      default_attributes['etckeeper']['git_host'] = 'github.com'
+      default_attributes['etckeeper']['git_port'] = 22
+      default_attributes['etckeeper']['git_repo'] = 'etckeeper'
       before do
         stub_command("#{git_cmd} config --get remote.origin.url")
           .and_return('something')
@@ -134,7 +142,9 @@ describe 'etckeeper::config' do
     end
 
     context 'without set remote git branch' do
-      default_attributes['etckeeper']['use_remote'] = true
+      default_attributes['etckeeper']['git_host'] = 'github.com'
+      default_attributes['etckeeper']['git_port'] = 22
+      default_attributes['etckeeper']['git_repo'] = 'etckeeper'
       before do
         stub_command("#{git_cmd} config --get remote.origin.url")
           .and_return('something')
@@ -151,7 +161,9 @@ describe 'etckeeper::config' do
     end
 
     context 'with existing remote git branch' do
-      default_attributes['etckeeper']['use_remote'] = true
+      default_attributes['etckeeper']['git_host'] = 'github.com'
+      default_attributes['etckeeper']['git_port'] = 22
+      default_attributes['etckeeper']['git_repo'] = 'etckeeper'
       before do
         stub_command("#{git_cmd} config --get remote.origin.url")
           .and_return('something')

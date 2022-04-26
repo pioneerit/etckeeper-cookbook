@@ -6,6 +6,12 @@ describe 'etckeeper::default' do
     stub_command(
       "#{git_cmd} config --get user.email | fgrep -q 'root@fauxhai.local'"
     ).and_return(true)
+    stub_command(
+      "#{git_cmd} config --get remote.origin.url"
+    ).and_return('something')
+    stub_command(
+      "#{git_cmd} config --get branch.master.remote"
+    ).and_return('something')
   end
 
   cached(:chef_run) do
