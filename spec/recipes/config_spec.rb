@@ -20,25 +20,12 @@ describe 'etckeeper::config' do
     expect(chef_run).to render_file('/etc/etckeeper/etckeeper.conf')
   end
 
-  it 'creates the etckeeper cron job by default' do
-    expect(chef_run).to create_template('/etc/cron.daily/etckeeper')
-      .with(owner: 'root')
-      .with(mode: '0755')
-    expect(chef_run).to render_file('/etc/cron.daily/etckeeper')
-      .with_content(/etckeeper commit "daily autocommit"/)
-  end
-
   context 'with attribute daily_auto_commits set to false' do
     cached(:chef_run) do
       ChefSpec::Runner.new do |node|
         node.set['etckeeper']['daily_auto_commits'] = false
       end.converge(described_recipe)
     end
-
-    it 'does not install the etckeeper cron job' do
-      expect(chef_run).not_to render_file('/etc/cron.daily/etckeeper')
-    end
-  end
 
   context 'without existing git repository' do
     before do
