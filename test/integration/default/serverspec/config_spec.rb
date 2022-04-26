@@ -1,9 +1,6 @@
-# encoding: UTF-8
-
 require 'spec_helper'
 
 describe 'etckeeper::config' do
-
   describe file('/etc/etckeeper/etckeeper.conf') do
     it { should be_file }
     it { should be_owned_by 'root' }
@@ -38,5 +35,4 @@ describe 'etckeeper::config' do
   describe command('git --git-dir=/etc/.git config --get user.email') do
     its(:stdout) { should eq "root@etckeeper.example.com\n" }
   end
-
 end

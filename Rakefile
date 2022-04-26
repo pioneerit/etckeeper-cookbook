@@ -1,15 +1,13 @@
-# encoding: utf-8
-
 require 'rubocop/rake_task'
 require 'rspec/core/rake_task'
-require 'foodcritic'
+require 'cookstyle'
 
 RuboCop::RakeTask.new(:rubocop)
 
 RSpec::Core::RakeTask.new(:rspec)
 
-FoodCritic::Rake::LintTask.new do |t|
-  t.options = { fail_tags: ['any'] }
+RuboCop::RakeTask.new do |task|
+  task.options << '--display-cop-names'
 end
 
-task default: [:rubocop, :foodcritic, :rspec]
+task default: [:rubocop, :cookstyle, :rspec]
