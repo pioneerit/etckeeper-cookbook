@@ -13,9 +13,6 @@ describe 'etckeeper::config' do
     is_expected.to render_file('/etc/etckeeper/etckeeper.conf')
   end
 
-  context 'with attribute daily_auto_commits set to false' do
-    default_attributes['etckeeper']['daily_auto_commits'] = false
-
   context 'without existing git repository' do
     before do
       allow(File).to receive(:exist?)
