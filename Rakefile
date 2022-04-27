@@ -6,7 +6,7 @@ RuboCop::RakeTask.new(:rubocop)
 
 RSpec::Core::RakeTask.new(:rspec)
 
-RuboCop::RakeTask.new do |task|
+RuboCop::RakeTask.new(:cookstyle) do |task|
   task.options << '--display-cop-names'
 end
 
