@@ -13,7 +13,7 @@ end
 # configured vcs:
 directory '/etc/.bzr' do
   action :delete
-  only_if { node['etckeeper']['vcs'] == 'git' }
+  only_if { node['etckeeper']['config_file']['VCS'] == 'git' }
   recursive true
 end
 

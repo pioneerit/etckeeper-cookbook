@@ -23,10 +23,13 @@ git_cmd = 'git --git-dir=/etc/.git'
 template node['etckeeper']['config'] do
   source 'etckeeper.conf.erb'
   mode '644'
+  variables(
+    config_file: node['etckeeper']['config_file']
+  )
 end
 
 execute 'etckeeper init' do
-  only_if { node['etckeeper']['vcs'] == 'git' }
+  only_if { node['etckeeper']['config_file']['VCS'] == 'git' }
   not_if { ::File.exist?('/etc/.git/config') }
   cwd '/etc'
 end
@@ -34,7 +37,7 @@ end
 email = node['etckeeper']['git_email']
 execute 'etckeeper_set_git_email' do
   command "#{git_cmd} config user.email '#{email}'"
-  only_if { node['etckeeper']['vcs'] == 'git' }
+  only_if { node['etckeeper']['config_file']['VCS'] == 'git' }
   not_if "#{git_cmd} config --get user.email | fgrep -q '#{email}'"
 end
 

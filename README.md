@@ -21,9 +21,9 @@ default['etckeeper']['git_repo'] = "etckeeper"
 default['etckeeper']['git_branch'] = node['fqdn']
 default['etckeeper']['git_email'] = "root@#{node['fqdn']}"
 
-default['etckeeper']['daily_auto_commits'] = true
-default['etckeeper']['special_file_warning'] = true
-default['etckeeper']['commit_before_install'] = true
+default['etckeeper']['config_file']['AVOID_DAILY_AUTOCOMMITS'] = 1
+default['etckeeper']['config_file']['AVOID_SPECIAL_FILE_WARNING'] = 1
+default['etckeeper']['config_file']['AVOID_COMMIT_BEFORE_INSTALL'] = 1
 
 default['etckeeper']['use_remote'] = true
 ```
