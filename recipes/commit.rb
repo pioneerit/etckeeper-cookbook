@@ -39,4 +39,5 @@ chef_handler 'Etckeeper::StartHandler' do
   source file_handler
   action :enable
   type start: true
+  only_if { ::File.exits?(file_handler) }
 end
