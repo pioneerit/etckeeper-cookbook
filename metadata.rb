@@ -15,5 +15,4 @@ source_url       "https://github.com/pioneerit/etckeeper-cookbook"
   supports os
 end
 
-depends "chef_handler"
 depends "git"

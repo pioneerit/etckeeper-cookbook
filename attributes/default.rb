@@ -1,3 +1,4 @@
+default['etckeeper']['handler_path'] = "#{File.expand_path(File.join(Chef::Config[:file_cache_path], '..'))}/handlers"
 default['etckeeper']['dir'] = '/etc/etckeeper'
 default['etckeeper']['config'] = ::File.join(node['etckeeper']['dir'], 'etckeeper.conf')
 default['etckeeper']['config_file']['VCS'] = 'git'

@@ -23,7 +23,8 @@ file '/etc/chef/client.d/etckeeper-handler.rb' do
   action :delete
 end
 
-file_handler = ::File.join(node['chef_handler']['handler_path'], 'etckeeper_handler.rb')
+file_handler = ::File.join(node['etckeeper']['handler_path'], 'etckeeper_handler.rb')
+
 template file_handler do
   source 'chef-client/etckeeper_handler.rb'
 end
