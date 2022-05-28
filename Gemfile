@@ -13,6 +13,8 @@ group :test do
   gem 'chefspec'
   gem 'rubocop'
   gem 'cookstyle'
+  gem 'kitchen-dokken'
+  gem 'kitchen-inspec'
 end
 
 group :openstack do
