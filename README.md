@@ -25,13 +25,12 @@ default['etckeeper']['config_file']['AVOID_DAILY_AUTOCOMMITS'] = 1
 default['etckeeper']['config_file']['AVOID_SPECIAL_FILE_WARNING'] = 1
 default['etckeeper']['config_file']['AVOID_COMMIT_BEFORE_INSTALL'] = 1
 
-default['etckeeper']['use_remote'] = true
 ```
 
 Usage
 =====
 * Add to run_list `recipe['etckeeper']` for local using etckeeper
-* Set `['use_remote']` to `true` for daily auto push to remote:
+* Set either ['git_host']`, ['git_repo'] or ['git_port'] for daily auto push to remote:
  * Make ssh key and copy to `./files/default/etckeeper_key` or create a wrapper cookbook with the ssh key you want to deploy then set following attribute: `node['etckeeper']['ssh']['key']['cookbook']`
  * Set your `git_host` and `git_port` if your need
  * Set at atribute for git repo. For example github repo `default['etckeeper']['git_repo'] = "myuser/myrepo.git"`

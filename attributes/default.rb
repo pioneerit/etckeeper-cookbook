@@ -6,10 +6,12 @@ default['etckeeper']['config_file']['AVOID_DAILY_AUTOCOMMITS'] = 1
 default['etckeeper']['config_file']['AVOID_COMMIT_BEFORE_INSTALL'] = 1
 default['etckeeper']['ssh']['key']['cookbook'] = 'etckeeper'
 default['etckeeper']['git_email'] = "root@#{node['fqdn']}"
+# Remote setting
 default['etckeeper']['git_host']
 default['etckeeper']['git_port']
 default['etckeeper']['git_repo']
 default['etckeeper']['git_branch']
+default['etckeeper']['config_file']['PUSH_REMOTE'] = ''
 
 case node['platform']
 when 'centos', 'redhat', 'amazon', 'scientific', 'fedora'
@@ -39,6 +41,9 @@ default['etckeeper']['config_file']['VCS'] = node['etckeeper']['vcs'] if node['e
 default['etckeeper']['config_file']['AVOID_DAILY_AUTOCOMMITS'] = 1 unless node['etckeeper']['daily_auto_commits']
 default['etckeeper']['config_file']['AVOID_SPECIAL_FILE_WARNING'] = 1 unless node['etckeeper']['special_file_warning']
 default['etckeeper']['config_file']['AVOID_COMMIT_BEFORE_INSTALL'] = 1 unless node['etckeeper']['commit_before_install']
-default['etckeeper']['config_file']['PUSH_REMOTE'] = 'origin' if node['etckeeper']['git_host'] && \
-                                                                 node['etckeeper']['git_port'] && \
-                                                                 node['etckeeper']['git_repo']
+unless node['etckeeper']['git_repo'].empty? ||
+    node['etckeeper']['git_host'].empty? ||
+    node['etckeeper']['git_branch'].empty?
+  default['etckeeper']['config_file']['PUSH_REMOTE'] = 'origin'
+  default['etckeeper']['git_branch'] = node['fqdn']
+end
