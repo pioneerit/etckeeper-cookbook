@@ -50,5 +50,6 @@ end
 Chef.event_handler do
   on :library_load_complete do
     Etckeeper::Handler.new.check_etckeeper_before_run
+    ENV['IN_CHEF'] = "1"
   end
 end
