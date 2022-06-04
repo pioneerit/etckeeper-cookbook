@@ -28,7 +28,7 @@ template node['etckeeper']['config'] do
   )
 end
 
-execute 'etckeeper init' do
+execute 'etckeeper init etckeeper && etckeeper commit -m "Initial commit"' do
   only_if { node['etckeeper']['config_file']['VCS'] == 'git' }
   not_if { ::File.exist?('/etc/.git/config') }
   cwd '/etc'
