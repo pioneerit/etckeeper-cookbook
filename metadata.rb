@@ -16,3 +16,4 @@ source_url       "https://github.com/pioneerit/etckeeper-cookbook"
 end
 
 depends "git"
+depends "yum-epel"
