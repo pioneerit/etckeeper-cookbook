@@ -15,16 +15,20 @@ Requirements
 Attributes
 ==========
 ```ruby
+# Setting up the remote configuration
 default['etckeeper']['git_host'] = "github.com"
 default['etckeeper']['git_port'] = "22"
 default['etckeeper']['git_repo'] = "etckeeper"
 default['etckeeper']['git_branch'] = node['fqdn']
 default['etckeeper']['git_email'] = "root@#{node['fqdn']}"
-
+# Setting up the configuration file
+default['etckeeper']['config_file']['VCS'] = git
 default['etckeeper']['config_file']['AVOID_DAILY_AUTOCOMMITS'] = 1
 default['etckeeper']['config_file']['AVOID_SPECIAL_FILE_WARNING'] = 1
 default['etckeeper']['config_file']['AVOID_COMMIT_BEFORE_INSTALL'] = 1
-
+# Setting up the Handler (if 'etckeeper::commit' is included)
+# This attributes set the path for the commit handler to be placed
+default['etckeeper']['handler_path'] = "#{File.expand_path(File.join(Chef::Config[:file_cache_path], '..'))}/handlers"
 ```
 
 Usage
