@@ -1,6 +1,12 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
@@ -17,7 +23,9 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true
     - name: Install dependencies
-      run: bundle config set --local without 'integration'
+      run: |
+        bundle config set --local with 'test'
+        bundle install
     - name: Run tests
       run: bundle exec rake
 
