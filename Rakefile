@@ -10,5 +10,4 @@ RuboCop::RakeTask.new(:cookstyle) do |task|
   task.options << '--display-cop-names'
 end
 
-#task default: [:rubocop, :cookstyle, :rspec]
-task default: [:rspec]
+task default: [:rubocop, :cookstyle, :rspec]

@@ -22,6 +22,12 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true
-    - name: Run tests
-      run: bundle exec rake
+    - name: 'rake :rubocop'
+      run: bundle exec rake rubocop
+    - name: 'rake :cookstyle'
+      if: always()
+      run: bundle exec rake cookstyle
+    - name: 'rake :rspec'
+      if: always()
+      run: bundle exec rake rspec
 
