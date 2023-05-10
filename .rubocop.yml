@@ -3,7 +3,6 @@ AllCops:
     - metadata.rb
     - Vagrantfile
     - Thorfile
-Documentation:
-  Enabled: false
+    - 'vendor/**/*'
 Metrics/MethodLength:
   Max: 27

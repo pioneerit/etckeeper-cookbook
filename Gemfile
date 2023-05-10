@@ -12,6 +12,7 @@ group :test do
   gem 'rake'
   gem 'chefspec'
   gem 'rubocop'
+  gem 'google-style'
   gem 'cookstyle'
   gem 'kitchen-dokken'
   gem 'kitchen-inspec'
