@@ -47,7 +47,7 @@ jobs:
   integration:
     runs-on: ubuntu-latest
     strategy: 
-    fail-fast: false
+      fail-fast: false
       matrix:
         os:
           - "ubuntu-2004"
