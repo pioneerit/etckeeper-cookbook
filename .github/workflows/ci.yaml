@@ -51,9 +51,9 @@ jobs:
       matrix:
         os:
           - "ubuntu-2004"
+          - "centos-8"
         suite:
-          - "distro"
-          - "repo"
+          - "default"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
