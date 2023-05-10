@@ -1,0 +1,37 @@
+From 9b6384516f5fcf57840dd4441dd4edcebd82d64c Mon Sep 17 00:00:00 2001
+From: Jeremy MAURO <jeremy.mauro@gmail.com>
+Date: Fri, 3 Jun 2022 18:17:00 +0200
+Subject: [PATCH] feat(etckeeper): Add unstash for etckeeper
+
+STATE:
+When adding new package, 'etckeeper' can only commit '/etc' as a whole
+but when adding new package we just want to commit the files created by
+the package installation.
+
+PROPOSED SOLUTION:
+A hook has been created to stash everything before installing new
+packages, so we have to unstage everything after.
+
+Signed-off-by: Jeremy MAURO <jeremy.mauro@gmail.com>
+---
+ etckeeper/post-install.d/99unstash | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+ create mode 100755 etckeeper/post-install.d/99unstash
+
+diff --git a/etckeeper/post-install.d/99unstash b/etckeeper/post-install.d/99unstash
+new file mode 100755
+index 0000000..203cdca
+--- /dev/null
++++ b/etckeeper/post-install.d/99unstash
+@@ -0,0 +1,8 @@
++#!/bin/sh
++set -e
++
++if [ ! -z "${IN_CHEF}" ]; then
++        if ! etckeeper vcs stash pop --quiet; then
++                echo "warning: etckeeper failed to unstash changes in /etc using $VCS" >&2
++        fi
++fi
+-- 
+2.35.1
+

@@ -1,0 +1,45 @@
+From 1e132bbbf237f2adec728bb2a640ae16be340782 Mon Sep 17 00:00:00 2001
+From: Jeremy MAURO <jeremy.mauro@gmail.com>
+Date: Fri, 3 Jun 2022 16:00:43 +0200
+Subject: [PATCH] feat(etckeeper): Create a hook to stash changes before
+ packages hooks
+
+STATE:
+During a chef-run configuration files as well as package could be added.
+When doing so, "etckeeper" doesn't allow to do both operation during the
+same run.
+
+PROPOSED SOLUTION:
+Create a hook in the package sanity check to stash all modification
+prior to the package installation, so the 'unclean' should pass.
+
+Signed-off-by: Jeremy MAURO <jeremy.mauro@gmail.com>
+---
+ etckeeper/pre-install.d/50uncommitted-changes | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/etckeeper/pre-install.d/50uncommitted-changes b/etckeeper/pre-install.d/50uncommitted-changes
+index 969d341..b418c4e 100755
+--- a/etckeeper/pre-install.d/50uncommitted-changes
++++ b/etckeeper/pre-install.d/50uncommitted-changes
+@@ -1,6 +1,17 @@
+ #!/bin/sh
+ set -e
+ 
++if [ ! -z "${IN_CHEF}" ]; then
++	if [ "$VCS" = git ] && [ -d .git ]; then
++		if ! etckeeper vcs add -v --all; then
++			echo "warning: etckeeper vcs add --all" >&2
++		fi
++		if ! etckeeper vcs stash push --quiet --message "uncommitted changes prior to ${HIGHLEVEL_PACKAGE_MANAGER}"; then
++			echo "warning: etckeeper failed to stash changes before installing packages with ${VCS}" >&2
++		fi
++	fi
++fi
++
+ if etckeeper unclean; then
+ 	if [ "$AVOID_COMMIT_BEFORE_INSTALL" = 1 ]; then
+ 		echo "" >&2
+-- 
+2.35.1
+
