@@ -4,22 +4,34 @@ driver_config:
   require_chef_omnibus: true
 
 platforms:
-- name: ubuntu-12.04
+- name: ubuntu-18.04
   driver_config:
-    box: opscode-ubuntu-12.04
-    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box
-- name: ubuntu-10.04
+    box: opscode-ubuntu-18.04
+    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-18.04_provisionerless.box
+- name: ubuntu-20.04
   driver_config:
-    box: opscode-ubuntu-10.04
-    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-10.04_provisionerless.box
-- name: centos-6.4
+    box: opscode-ubuntu-20.04
+    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-20.04_provisionerless.box
+- name: centos-7
   driver_config:
-    box: opscode-centos-6.4
-    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box
-- name: centos-5.9
+    box: opscode-centos-7
+    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-7_provisionerless.box
+- name: centos-8
   driver_config:
-    box: opscode-centos-5.9
-    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-5.9_provisionerless.box
+    box: opscode-centos-8
+    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-8_provisionerless.box
+- name: debian-10
+  driver_config:
+    box: opscode-debian-10
+    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_debian-10_provisionerless.box
+- name: debian-11
+  driver_config:
+    box: opscode-debian-11
+    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_debian-11_provisionerless.box
+- name: debian-12
+  driver_config:
+    box: opscode-debian-12
+    box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_debian-12_provisionerless.box
 
 suites:
 - name: default
