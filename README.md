@@ -1,5 +1,8 @@
 Description
 ===========
+
+[![CI State](https://github.com/pioneerit/etckeeper-cookbook/workflows/CI/badge.svg)](https://github.com/pioneerit/etckeeper-cookbook/actions?query=workflow%3ACI)
+
 Install and configure etckeeper.
 Thanks to maintainers from [TYPO3 Association](https://github.com/TYPO3-cookbooks):
 * *Steffen Gebert*
