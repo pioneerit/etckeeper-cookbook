@@ -55,7 +55,7 @@ This recipe will do two things
 Changelog
 =========
 
-1.0.5 (unreleased)
+1.0.5
 -----
 Updates from [Jeremy MAURO](https://github.com/jmauro):
 * #14 make tests compliant with the latest version of Chefspec and chef
