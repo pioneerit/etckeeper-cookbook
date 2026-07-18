@@ -17,6 +17,11 @@ directory '/etc/.bzr' do
   recursive true
 end
 
+# Initialize the VCS repository (etckeeper init) before applying the hook
+# patches below, otherwise `etckeeper vcs apply --check` has no repository to
+# check against and the hooks are silently skipped on the first converge.
+include_recipe 'etckeeper::config'
+
 patches_list = %w{
   0001-feat-etckeeper-Add-unstash-for-etckeeper.patch
   0001-feat-etckeeper-Create-a-hook-to-stash-changes-before.patch
@@ -52,5 +57,3 @@ execute 'etckeeper pre-commit' do
     notifies :run, "execute[Commit updated metastore(#{patch_file})]", :immediate
   end
 end
-
-include_recipe 'etckeeper::config'

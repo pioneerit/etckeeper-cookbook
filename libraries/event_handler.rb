@@ -49,7 +49,23 @@ end
 
 Chef.event_handler do
   on :library_load_complete do
-    Etckeeper::Handler.new.check_etckeeper_before_run
-    ENV['IN_CHEF'] = "1"
+    # Libraries are loaded for every cookbook in the run's dependency graph,
+    # even when no etckeeper recipe is in the run_list. Only enforce the /etc
+    # sanity check (and mark the run with IN_CHEF for the etckeeper hooks) when
+    # an etckeeper recipe is actually part of this run, so we never abort
+    # unrelated chef-client runs that merely depend on this cookbook.
+    node = Chef.run_context.node
+    etckeeper_recipe = lambda do |name|
+      name = name.to_s
+      name == 'etckeeper' || name.start_with?('etckeeper::')
+    end
+    in_etckeeper_run =
+      Array(node['recipes']).any? { |r| etckeeper_recipe.call(r) } ||
+      node.run_list.any? { |item| etckeeper_recipe.call(item.name) }
+
+    if in_etckeeper_run
+      Etckeeper::Handler.new.check_etckeeper_before_run
+      ENV['IN_CHEF'] = '1'
+    end
   end
 end

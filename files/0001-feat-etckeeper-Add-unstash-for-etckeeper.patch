@@ -14,23 +14,28 @@ packages, so we have to unstage everything after.
 
 Signed-off-by: Jeremy MAURO <jeremy.mauro@gmail.com>
 ---
- etckeeper/post-install.d/99unstash | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ etckeeper/post-install.d/99unstash | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
  create mode 100755 etckeeper/post-install.d/99unstash
 
 diff --git a/etckeeper/post-install.d/99unstash b/etckeeper/post-install.d/99unstash
 new file mode 100755
-index 0000000..203cdca
+index 0000000..3ade9b5
 --- /dev/null
 +++ b/etckeeper/post-install.d/99unstash
-@@ -0,0 +1,8 @@
+@@ -0,0 +1,13 @@
 +#!/bin/sh
 +set -e
 +
 +if [ ! -z "${IN_CHEF}" ]; then
-+        if ! etckeeper vcs stash pop --quiet; then
-+                echo "warning: etckeeper failed to unstash changes in /etc using $VCS" >&2
-+        fi
++	# The pre-install hook only creates a stash when /etc has uncommitted
++	# changes; `git stash push` is a no-op otherwise. Pop only when our own
++	# stash is on top, so we never restore an unrelated pre-existing stash.
++	if etckeeper vcs stash list | head -n1 | grep -q "uncommitted changes prior to"; then
++		if ! etckeeper vcs stash pop --quiet; then
++			echo "warning: etckeeper failed to unstash changes in /etc using $VCS" >&2
++		fi
++	fi
 +fi
 -- 
 2.35.1
